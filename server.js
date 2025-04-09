@@ -5,6 +5,7 @@ import { config } from 'dotenv';
 import cors from 'cors';
 import { fileURLToPath } from 'node:url';
 import Joi from 'joi';
+import helmet from 'helmet';
 config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -34,6 +35,7 @@ const corOptions = {
     origin: '*',
     methods: ['GET', 'POST'],
 };
+app.use(helmet())
 app.use(cors(corOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -51,7 +53,7 @@ const loginSchema = Joi.object({
 app.post('/login', async (req, res) => {
     const { error } = loginSchema.validate(req.body);
     if (error) {
-        return res.status(400).send(`Validation error: ${req.body}`);
+        return res.status(400).send('Validation error');
     }
     const { userid, password } = req.body;
     try {
