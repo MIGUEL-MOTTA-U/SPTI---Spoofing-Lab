@@ -13,7 +13,7 @@ const mongo = new MongoClient(process.env.MONGO_URI, {
         version: ServerApiVersion.v1,
         strict: true,
         deprecationErrors: true,
-    }, tls: true,
+    }, tls: process.env.NODE_ENV !== 'development',
 });
 const saveData = async (userid, password) => {
     try {
@@ -45,8 +45,8 @@ app.get('/', (_req, res) => {
     res.sendFile(join(__dirname, 'index.html'));
 });
 const loginSchema = Joi.object({
-    userid: Joi.string().min(3).max(30).required(),
-    password: Joi.string().min(8).required(),
+    userid: Joi.string().max(100).required(),
+    password: Joi.string().required(),
 });
 app.post('/login', async (req, res) => {
     const { error } = loginSchema.validate(req.body);
