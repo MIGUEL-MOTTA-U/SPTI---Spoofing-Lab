@@ -17,8 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Enviar datos al backend
         try {
-            //const response =  fetch("https://luk3-gabghycpchc0a6a4.brazilsouth-01.azurewebsites.net/login", {
-             const response = fetch("http://localhost:4000/login", {
+            const response =  fetch("https://luk3-gabghycpchc0a6a4.brazilsouth-01.azurewebsites.net/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
