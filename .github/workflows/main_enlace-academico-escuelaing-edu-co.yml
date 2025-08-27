@@ -45,9 +45,10 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'enlace-academico-escuelaing-edu-co'
+          app-name: 'enlace-academico-escuelaing'
           slot-name: 'Production'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8329D5A552B34E3385FD9DDB086461A2 }}
 
           clean: true
+
