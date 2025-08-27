@@ -48,5 +48,6 @@ jobs:
           app-name: 'enlace-academico-escuelaing-edu-co'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5CAC9846EE3545D997F043E05A8F20DE }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8329D5A552B34E3385FD9DDB086461A2 }}
+
           clean: true
