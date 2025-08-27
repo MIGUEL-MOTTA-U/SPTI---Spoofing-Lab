@@ -1,6 +1,6 @@
 import express, { json } from 'express';
 import { join, dirname } from 'node:path';
-import { MongoClient, ServerApiVersion } from 'mongodb';
+// ...existing code...
 import { config } from 'dotenv';
 import cors from 'cors';
 import { fileURLToPath } from 'node:url';
@@ -9,26 +9,7 @@ import helmet from 'helmet';
 config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const mongo = new MongoClient(process.env.MONGO_URI, {
-    serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-    }, tls: process.env.NODE_ENV !== 'development',
-});
-const saveData = async (userid, password) => {
-    try {
-        const db = mongo.db(process.env.DB_NAME);
-        const collectionName = process.env.DB_COLLECTION;
-        if (!collectionName) {
-            throw new Error("DB_COLLECTION is not defined in the environment variables.");
-        }
-        const collection = db.collection(collectionName);
-        await collection.insertOne({ userid, password });
-    } catch (error) {
-        console.error(`Failed to save data: ${error}`);
-    }
-};
+// ...existing code...
 const app = express();
 const PORT = process.env.PORT || 3000;
 const corOptions = {
@@ -55,21 +36,9 @@ app.post('/login', async (req, res) => {
     if (error) {
         return res.status(400).send('Validation error');
     }
-    const { userid, password } = req.body;
-    try {
-        await saveData(userid, password);
-        res.status(200).send('Data saved successfully!');
-    } catch (err) {
-        console.error(`Failed to save data: ${err}`);
-        res.status(500).send('Internal server error');
-    }
+    res.status(200).send('Login recibido');
 });
 
 app.listen(PORT, async () => {
-    try {
-        await mongo.connect();
-        console.log(`Server is running on http://localhost:${PORT}`);
-    } catch (error) {
-        console.error(`Failed to connect to MongoDB: ${error}`);
-    }
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
